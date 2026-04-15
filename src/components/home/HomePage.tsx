@@ -23,13 +23,40 @@ export function HomePage() {
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 130, damping: 24 });
-
+const [isClicking, setIsClicking] = useState(false);
+const [isHovering, setIsHovering] = useState(false);
   useEffect(() => {
     const timeout = setTimeout(() => setIsLoading(false), 1100);
     return () => clearTimeout(timeout);
   }, []);
+useEffect(() => {
+  const handleDown = () => setIsClicking(true);
+  const handleUp = () => setIsClicking(false);
 
-  useEffect(() => {
+  document.addEventListener("mousedown", handleDown);
+  document.addEventListener("mouseup", handleUp);
+
+  return () => {
+    document.removeEventListener("mousedown", handleDown);
+    document.removeEventListener("mouseup", handleUp);
+  };
+}, []);
+useEffect(() => {
+  const elements = document.querySelectorAll("a, button");
+
+  elements.forEach((el) => {
+    el.addEventListener("mouseenter", () => setIsHovering(true));
+    el.addEventListener("mouseleave", () => setIsHovering(false));
+  });
+
+  return () => {
+    elements.forEach((el) => {
+      el.removeEventListener("mouseenter", () => setIsHovering(true));
+      el.removeEventListener("mouseleave", () => setIsHovering(false));
+    });
+  };
+}, []);  
+useEffect(() => {
     const onMove = (event: MouseEvent) => setCursor({ x: event.clientX, y: event.clientY });
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
@@ -57,15 +84,23 @@ export function HomePage() {
       ) : null}
       <motion.div style={{ scaleX }} className="fixed left-0 right-0 top-0 z-[90] h-1 origin-left highlight-line" />
       <motion.div
-        className="custom-cursor pointer-events-none fixed z-0 hidden h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#00FFB2]/60 bg-[#00FFB2]/15 md:block"
-        animate={{ x: cursor.x, y: cursor.y }}
-        transition={{ type: "spring", damping: 30, stiffness: 160 }}
-      />
+  className="custom-cursor pointer-events-none fixed z-50 hidden md:block h-3 w-3 rounded-full bg-[#00FFB2]"
+  animate={{
+    x: cursor.x,
+    y: cursor.y,
+    scale: isClicking ? 0.7 : 1,
+  }}
+  transition={{ type: "spring", damping: 30, stiffness: 300 }}
+/>
       <motion.div
-        className="pointer-events-none fixed z-0 hidden h-52 w-52 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00FFB2]/10 blur-3xl md:block"
-        animate={{ x: cursor.x, y: cursor.y }}
-        transition={{ type: "spring", damping: 35, stiffness: 120 }}
-      />
+  className="pointer-events-none fixed z-40 hidden md:block h-10 w-10 rounded-full border border-[#00FFB2]/50 bg-[#00FFB2]/10 backdrop-blur-md"
+  animate={{
+    x: cursor.x,
+    y: cursor.y,
+    scale: isClicking ? 0.9 : 1,
+  }}
+  transition={{ type: "spring", damping: 25, stiffness: 150 }}
+/>
       <Navbar content={siteContent} />
       <main className="relative z-10">
         <Hero content={siteContent} />

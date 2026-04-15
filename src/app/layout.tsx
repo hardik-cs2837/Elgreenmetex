@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Sora } from "next/font/google";
 import "./globals.css";
+import { siteContent } from "@/data/content";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,25 +14,21 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "Elgreen Metex Private Limited | Circular Battery Intelligence",
-  description:
-    "Elgreen Metex builds a circular battery materials supply chain through advanced lithium-ion recycling, high-purity material recovery, and second-life energy solutions.",
-  keywords: [
-    "battery recycling",
-    "EV recycling India",
-    "lithium recovery",
-    "circular economy",
-    "critical minerals",
-    "clean tech startup",
-  ],
-  metadataBase: new URL("https://www.elgreenmetex.com"),
+  title: siteContent.seo.title,
+  description: siteContent.seo.description,
+  keywords: [...siteContent.seo.keywords],
+  metadataBase: new URL(siteContent.seo.url),
   openGraph: {
-    title: "Elgreen Metex Private Limited",
-    description:
-      "Powering the future with circular battery intelligence and proprietary recycling technology.",
-    url: "https://www.elgreenmetex.com",
+    title: siteContent.seo.title,
+    description: siteContent.seo.description,
+    url: siteContent.seo.url,
     siteName: "Elgreen Metex",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteContent.seo.title,
+    description: siteContent.seo.description,
   },
 };
 

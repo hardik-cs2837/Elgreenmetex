@@ -28,6 +28,16 @@ body {
   overflow-x: hidden;
 }
 
+@media (pointer: fine) {
+  body,
+  a,
+  button,
+  input,
+  textarea {
+    cursor: none;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -103,4 +113,9 @@ h6 {
   background-size: 44px 44px;
   mask-image: radial-gradient(circle at center, black 25%, transparent 90%);
   pointer-events: none;
+}
+
+.custom-cursor {
+  mix-blend-mode: screen;
+  box-shadow: 0 0 32px rgba(0, 255, 178, 0.35);
 }

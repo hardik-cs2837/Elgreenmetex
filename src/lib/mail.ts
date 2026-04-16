@@ -1,3 +1,4 @@
+import { Resend } from "resend";
 type ContactPayload = {
   name: string;
   email: string;
@@ -10,13 +11,13 @@ type SendEmailResult = {
   status: number;
   error?: string;
 };
-
+const resend = new Resend(process.env.RESEND_API_KEY);
 export async function sendEmail(payload: ContactPayload): Promise<SendEmailResult> {
-  const apiKey = process.env.RESEND_API_KEY;
+  
   const toEmail = process.env.CONTACT_TO_EMAIL;
-  const fromEmail = process.env.CONTACT_FROM_EMAIL ?? "Elgreen Metex <onboarding@resend.dev>";
+  
 
-  if (!apiKey || !toEmail) {
+  if (!process.env.RESEND_API_KEY || !toEmail) {
     return {
       ok: false,
       status: 500,
@@ -34,30 +35,25 @@ export async function sendEmail(payload: ContactPayload): Promise<SendEmailResul
     <p>${payload.message.replace(/\n/g, "<br />")}</p>
   `;
 
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: fromEmail,
-      to: [toEmail],
-      reply_to: payload.email,
-      subject,
-      html,
-    }),
+  try {
+  await resend.emails.send({
+    from: "onboarding@resend.dev",
+    to: [toEmail],
+    reply_to: payload.email,
+    subject,
+    html,
   });
 
-  if (!response.ok) {
-    const details = await response.text();
-    return {
-      ok: false,
-      status: response.status,
-      error: details,
-    };
-  }
-
   return { ok: true, status: 200 };
+} catch (error: any) {
+  console.error(error);
+  return {
+    ok: false,
+    status: 500,
+    error: error?.message || "Email failed",
+  };
+}
+
+ 
 }
 

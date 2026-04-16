@@ -1,3 +1,4 @@
+"use server";
 import { Resend } from "resend";
 type ContactPayload = {
   name: string;
@@ -11,7 +12,7 @@ type SendEmailResult = {
   status: number;
   error?: string;
 };
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY!);
 export async function sendEmail(payload: ContactPayload): Promise<SendEmailResult> {
   
   const toEmail = process.env.CONTACT_TO_EMAIL;
@@ -38,7 +39,7 @@ export async function sendEmail(payload: ContactPayload): Promise<SendEmailResul
   try {
   await resend.emails.send({
     from: "onboarding@resend.dev",
-    to: [toEmail],
+    to: [toEmail!],
     reply_to: payload.email,
     subject,
     html,

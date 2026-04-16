@@ -39,7 +39,7 @@ export async function sendEmail(payload: ContactPayload): Promise<SendEmailResul
   try {
   await resend.emails.send({
     from: "Elgreen Metex <onboarding@resend.dev>",
-    to: ["hardikmanchanda2007@gmail.com"],
+    to: [toEmail!],
     reply_to: payload.email,
     subject,
     html,

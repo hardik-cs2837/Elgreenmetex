@@ -38,8 +38,8 @@ export async function sendEmail(payload: ContactPayload): Promise<SendEmailResul
 
   try {
   await resend.emails.send({
-    from: "onboarding@resend.dev",
-    to: [toEmail!],
+    from: "Elgreen Metex <onboarding@resend.dev>",
+    to: ["hardikmanchanda2007@gmail.com"],
     reply_to: payload.email,
     subject,
     html,

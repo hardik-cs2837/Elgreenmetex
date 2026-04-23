@@ -39,6 +39,34 @@ export function ESG({ content }: { content: SiteContent }) {
           </div>
         </motion.div>
       </div>
+      <motion.div
+  {...fadeInUp}
+  className="mt-16 text-center"
+>
+  <h3 className="text-2xl font-semibold mb-8">
+    Compliance & Certifications
+  </h3>
+
+  <div className="flex flex-col md:flex-row justify-center gap-6">
+    
+    <a
+      href="/assets/pdf/Battery.pdf"
+      target="_blank"
+      className="glass-card rounded-2xl px-6 py-4 border border-white/10 hover:border-[#00FFB2]/40 hover:bg-[#00FFB2]/10 transition"
+    >
+      📄 Battery Waste Authorization
+    </a>
+
+    <a
+      href="/assets/pdf/NOC.pdf"
+      target="_blank"
+      className="glass-card rounded-2xl px-6 py-4 border border-white/10 hover:border-[#00FFB2]/40 hover:bg-[#00FFB2]/10 transition"
+    >
+      📄 Transformer Safety NOC
+    </a>
+
+  </div>
+</motion.div>
     </section>
   );
 }

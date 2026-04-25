@@ -1,5 +1,5 @@
 "use client";
-
+import { useState } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import type { SiteContent } from "@/components/home/types";
@@ -11,6 +11,7 @@ const ESGComparison = dynamic(() => import("@/components/home/charts/ESGComparis
 });
 
 export function ESG({ content }: { content: SiteContent }) {
+  const [doc, setDoc] = useState("battery");
   return (
     <section id="impact" className="section-anchor mx-auto max-w-7xl px-4 py-[5.5rem] md:px-8">
       <SectionHeading eyebrow={content.esg.eyebrow} title={content.esg.title} description={content.esg.description} />
@@ -47,25 +48,42 @@ export function ESG({ content }: { content: SiteContent }) {
     Compliance & Certifications
   </h3>
 
-  <div className="flex flex-col md:flex-row justify-center gap-6">
-    
-    <a
-      href="/assets/pdf/Battery.pdf"
-      target="_blank"
-      className="glass-card rounded-2xl px-6 py-4 border border-white/10 hover:border-[#00FFB2]/40 hover:bg-[#00FFB2]/10 transition"
-    >
-      📄 Battery Waste Authorization
-    </a>
+ {/* Buttons */}
+<div className="flex justify-center gap-4 mb-6 flex-wrap">
+  <button
+    onClick={() => setDoc("battery")}
+    className={`px-5 py-2 rounded-xl transition ${
+      doc === "battery"
+        ? "bg-[#00FFB2] text-black"
+        : "border border-white/20 hover:border-[#00FFB2]/40"
+    }`}
+  >
+    Battery Authorization
+  </button>
 
-    <a
-      href="/assets/pdf/NOC.pdf"
-      target="_blank"
-      className="glass-card rounded-2xl px-6 py-4 border border-white/10 hover:border-[#00FFB2]/40 hover:bg-[#00FFB2]/10 transition"
-    >
-      📄 Transformer Safety NOC
-    </a>
+  <button
+    onClick={() => setDoc("noc")}
+    className={`px-5 py-2 rounded-xl transition ${
+      doc === "noc"
+        ? "bg-[#00FFB2] text-black"
+        : "border border-white/20 hover:border-[#00FFB2]/40"
+    }`}
+  >
+    Transformer NOC
+  </button>
+</div>
 
-  </div>
+{/* PDF Viewer */}
+<div className="max-w-5xl mx-auto glass-card p-4 rounded-2xl border border-white/10">
+  <iframe
+    src={doc === "battery" ? "/assets/pdf/Battery.pdf" : "/assets/pdf/NOC.pdf"}
+    width="100%"
+    height="600px"
+    className="rounded-xl"
+  />
+</div>
+
+  
 </motion.div>
     </section>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import type { SiteContent } from "@/components/home/types";
@@ -12,6 +12,10 @@ const ESGComparison = dynamic(() => import("@/components/home/charts/ESGComparis
 
 export function ESG({ content }: { content: SiteContent }) {
   const [doc, setDoc] = useState("battery");
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+  document.body.style.overflow = open ? "hidden" : "auto";
+}, [open]);
   return (
     <section id="impact" className="section-anchor mx-auto max-w-7xl px-4 py-[5.5rem] md:px-8">
       <SectionHeading eyebrow={content.esg.eyebrow} title={content.esg.title} description={content.esg.description} />
@@ -80,19 +84,73 @@ export function ESG({ content }: { content: SiteContent }) {
     animate={{ opacity: 1 }}
     transition={{ duration: 0.3 }}
   >
-    <iframe
-      src={`${
-        doc === "battery"
-          ? "/assets/pdf/Battery.pdf"
-          : "/assets/pdf/NOC.pdf"
-      }#toolbar=0`}
-      className="w-full h-[85vh] rounded-2xl border border-white/10"
-    />
+    <div className="flex justify-center mt-8">
+  <motion.div
+    className="glass-card p-6 rounded-2xl max-w-md w-full text-left"
+  >
+    <h4 className="text-lg font-semibold">
+      {doc === "battery" ? "Battery Authorization" : "Transformer NOC"}
+    </h4>
+
+    <p className="text-sm text-emerald-100/70 mt-1">
+      Issued by UP Pollution Control Board
+    </p>
+
+    <div className="mt-5 flex gap-3">
+      <button
+        onClick={() => setOpen(true)}
+        className="px-4 py-2 bg-[#00FFB2] text-black rounded-lg"
+      >
+        View Certificate
+      </button>
+
+      <a
+        href={
+          doc === "battery"
+            ? "/assets/pdf/Battery.pdf"
+            : "/assets/pdf/NOC.pdf"
+        }
+        target="_blank"
+        className="px-4 py-2 border border-white/20 rounded-lg"
+      >
+        Download
+      </a>
+        
+  
+      
+    </div>
+  </motion.div>
+</div>
   </motion.div>
 </div>
   
 </motion.div>
+
+    
+    {open && (
+  <div className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4">
+    
+    <div className="relative w-full max-w-5xl h-[85vh] bg-black rounded-2xl overflow-hidden border border-white/10">
       
+      <button
+        onClick={() => setOpen(false)}
+        className="absolute top-4 right-4 z-10 px-3 py-1 bg-white/10 rounded-lg"
+      >
+        Close
+      </button>
+
+      <iframe
+        src={
+          doc === "battery"
+            ? "/assets/pdf/Battery.pdf"
+            : "/assets/pdf/NOC.pdf"
+        }
+        className="w-full h-full"
+      />
+    </div>
+  </div>
+)}
+ 
     </section>
   );
 }

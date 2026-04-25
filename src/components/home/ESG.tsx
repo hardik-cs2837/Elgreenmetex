@@ -73,18 +73,26 @@ export function ESG({ content }: { content: SiteContent }) {
   </button>
 </div>
 
-{/* PDF Viewer */}
-<div className="max-w-5xl mx-auto glass-card p-4 rounded-2xl border border-white/10">
-  <iframe
-    src={doc === "battery" ? "/assets/pdf/Battery.pdf" : "/assets/pdf/NOC.pdf"}
-    width="100%"
-    height="600px"
-    className="rounded-xl"
-  />
+<div className="w-full mt-8">
+  <motion.div
+    key={doc}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.3 }}
+  >
+    <iframe
+      src={`${
+        doc === "battery"
+          ? "/assets/pdf/Battery.pdf"
+          : "/assets/pdf/NOC.pdf"
+      }#toolbar=0`}
+      className="w-full h-[85vh] rounded-2xl border border-white/10"
+    />
+  </motion.div>
 </div>
-
   
 </motion.div>
+      
     </section>
   );
 }

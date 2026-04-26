@@ -57,7 +57,7 @@ export function Hero({ content }: { content: SiteContent }) {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="inline-flex"
           >
-            <MetexLogo size={56} showText={true} />
+            <MetexLogo size={56}  />
           </motion.div>
 
           {/* Eyebrow pill */}

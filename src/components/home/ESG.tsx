@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
@@ -78,6 +77,12 @@ function CertificateCard({
 }) {
   const Icon = cert.icon === "shield" ? Shield : FileText;
 
+export function ESG({ content }: { content: SiteContent }) {
+  const [doc, setDoc] = useState("battery");
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+  document.body.style.overflow = open ? "hidden" : "auto";
+}, [open]);
   return (
     <motion.div
       {...fadeInUp}
@@ -382,9 +387,113 @@ export function ESG({ content }: { content: SiteContent }) {
           </motion.div>
         </div>
       </div>
+      <motion.div
+  {...fadeInUp}
+  className="mt-16 text-center"
+>
+  <h3 className="text-2xl font-semibold mb-8">
+    Compliance & Certifications
+  </h3>
 
-      {/* Modal */}
-      <CertificateModal cert={activeCert} onClose={() => setActiveCert(null)} />
+ {/* Buttons */}
+<div className="flex justify-center gap-4 mb-6 flex-wrap">
+  <button
+    onClick={() => setDoc("battery")}
+    className={`px-5 py-2 rounded-xl transition ${
+      doc === "battery"
+        ? "bg-[#00FFB2] text-black"
+        : "border border-white/20 hover:border-[#00FFB2]/40"
+    }`}
+  >
+    Battery Authorization
+  </button>
+
+  <button
+    onClick={() => setDoc("noc")}
+    className={`px-5 py-2 rounded-xl transition ${
+      doc === "noc"
+        ? "bg-[#00FFB2] text-black"
+        : "border border-white/20 hover:border-[#00FFB2]/40"
+    }`}
+  >
+    Transformer NOC
+  </button>
+</div>
+
+<div className="w-full mt-8">
+  <motion.div
+    key={doc}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.3 }}
+  >
+    <div className="flex justify-center mt-8">
+  <motion.div
+    className="glass-card p-6 rounded-2xl max-w-md w-full text-left"
+  >
+    <h4 className="text-lg font-semibold">
+      {doc === "battery" ? "Battery Authorization" : "Transformer NOC"}
+    </h4>
+
+    <p className="text-sm text-emerald-100/70 mt-1">
+      Issued by UP Pollution Control Board
+    </p>
+
+    <div className="mt-5 flex gap-3">
+      <button
+        onClick={() => setOpen(true)}
+        className="px-4 py-2 bg-[#00FFB2] text-black rounded-lg"
+      >
+        View Certificate
+      </button>
+
+      <a
+        href={
+          doc === "battery"
+            ? "/assets/pdf/Battery.pdf"
+            : "/assets/pdf/NOC.pdf"
+        }
+        target="_blank"
+        className="px-4 py-2 border border-white/20 rounded-lg"
+      >
+        Download
+      </a>
+        
+  
+      
+    </div>
+  </motion.div>
+</div>
+  </motion.div>
+</div>
+  
+</motion.div>
+
+    
+    {open && (
+  <div className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4">
+    
+    <div className="relative w-full max-w-5xl h-[85vh] bg-black rounded-2xl overflow-hidden border border-white/10">
+      
+      <button
+        onClick={() => setOpen(false)}
+        className="absolute top-4 right-4 z-10 px-3 py-1 bg-white/10 rounded-lg"
+      >
+        Close
+      </button>
+
+      <iframe
+        src={
+          doc === "battery"
+            ? "/assets/pdf/Battery.pdf"
+            : "/assets/pdf/NOC.pdf"
+        }
+        className="w-full h-full"
+      />
+    </div>
+  </div>
+)}
+ 
     </section>
   );
 }

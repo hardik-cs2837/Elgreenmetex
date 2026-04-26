@@ -75,96 +75,15 @@ function CertificateCard({
   cert: Certificate;
   onView: (c: Certificate) => void;
 }) {
-  const Icon = cert.icon === "shield" ? Shield : FileText;
-
-export function ESG({ content }: { content: SiteContent }) {
-  const [doc, setDoc] = useState("battery");
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-  document.body.style.overflow = open ? "hidden" : "auto";
-}, [open]);
   return (
-    <motion.div
-      {...fadeInUp}
-      whileHover={{ y: -3 }}
-      transition={{ duration: 0.22 }}
-      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.06] via-transparent to-[#00FFB2]/[0.04] p-5 backdrop-blur-xl hover:border-[#00FFB2]/40 hover:shadow-[0_8px_40px_rgba(0,255,178,0.1)] transition-all duration-300"
-    >
-      {/* Header row */}
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#00FFB2]/10 ring-1 ring-[#00FFB2]/25">
-            <Icon className="h-5 w-5 text-[#00FFB2]" />
-          </div>
-          <div>
-            <p className="font-semibold leading-tight text-white">{cert.title}</p>
-            <p className="mt-0.5 text-[11px] text-emerald-50/55">{cert.subtitle}</p>
-          </div>
-        </div>
-        <span className="shrink-0 rounded-full border border-[#00FFB2]/30 bg-[#00FFB2]/10 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-[#00FFB2]">
-          {cert.badge}
-        </span>
-      </div>
-
-      {/* Divider */}
-      <div className="my-4 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-
-      {/* Meta info */}
-      <div className="space-y-2.5">
-        <div className="flex items-center gap-2">
-          <CheckCircle className="h-4 w-4 shrink-0 text-[#00FFB2]" />
-          <p className="text-sm font-medium text-emerald-50/90">{cert.highlight}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Award className="h-4 w-4 shrink-0 text-emerald-50/45" />
-          <p className="text-xs text-emerald-50/60">{cert.issuer}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <FileText className="h-4 w-4 shrink-0 text-emerald-50/35" />
-          <p className="text-xs text-emerald-50/50">{cert.rule}</p>
-        </div>
-      </div>
-
-      {/* Tags */}
-      <div className="mt-3.5 flex flex-wrap gap-1.5">
-        {cert.tags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[10px] text-emerald-50/65"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-
-      {/* Actions */}
-      <div className="mt-4 flex gap-2">
-        <button
-          id={`view-cert-${cert.id}`}
-          onClick={() => onView(cert)}
-          className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-[#00FFB2]/35 bg-[#00FFB2]/10 px-3 py-2.5 text-xs font-semibold text-[#00FFB2] transition-all hover:bg-[#00FFB2]/20 hover:border-[#00FFB2]/70 hover:shadow-[0_4px_20px_rgba(0,255,178,0.2)]"
-        >
-          <Eye className="h-3.5 w-3.5" />
-          View Certificate
-        </button>
-        <a
-          href={cert.pdfPath}
-          download
-          id={`download-cert-${cert.id}`}
-          className="flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 text-xs font-semibold text-emerald-50/75 transition-all hover:border-white/30 hover:bg-white/10"
-        >
-          <Download className="h-3.5 w-3.5" />
-          Download
-        </a>
-      </div>
-
-      {/* Hover glow */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{ background: "radial-gradient(ellipse at top left, rgba(0,255,178,0.05), transparent 60%)" }}
-      />
-    </motion.div>
+    <div className="p-4 border rounded-xl">
+      <p>{cert.title}</p>
+      <button onClick={() => onView(cert)}>View</button>
+    </div>
   );
 }
+
+
 
 /* ─── Certificate Modal ─────────────────────────────────────── */
 function CertificateModal({
@@ -287,8 +206,12 @@ function CertificateModal({
 }
 
 /* ─── Main ESG section ──────────────────────────────────────── */
+
 export function ESG({ content }: { content: SiteContent }) {
   const [activeCert, setActiveCert] = useState<Certificate | null>(null);
+
+  const [doc, setDoc] = useState("battery");
+  const [open, setOpen] = useState(false);
 
   return (
     <section
@@ -493,7 +416,10 @@ export function ESG({ content }: { content: SiteContent }) {
     </div>
   </div>
 )}
- 
+ <CertificateModal
+  cert={activeCert}
+  onClose={() => setActiveCert(null)}
+/>
     </section>
   );
 }

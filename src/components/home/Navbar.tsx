@@ -27,7 +27,7 @@ export function Navbar({ content }: { content: SiteContent }) {
       <nav className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-4 md:px-8">
         {/* Brand */}
         <a href="#hero" className="flex items-center gap-2.5 group">
-          <MetexLogo size={32} showText={false} />
+          <MetexLogo size={32} />
           <div className="flex flex-col leading-none">
             <span className="text-base font-bold tracking-tight text-white group-hover:text-[#00FFB2] transition-colors">
               {content.brand.name.split(" ")[0]}{" "}

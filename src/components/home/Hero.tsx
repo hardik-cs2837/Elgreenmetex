@@ -114,7 +114,7 @@ export function Hero({ content }: { content: SiteContent }) {
           className="animated-border glass-card rounded-3xl p-6 md:p-8"
         >
           <div className="flex items-center gap-2 mb-6">
-            <MetexLogo size={24} showText={false} />
+            <MetexLogo size={24} />
             <p className="text-sm uppercase tracking-[0.24em] text-emerald-100/60">
               Impact Snapshot
             </p>

@@ -12,7 +12,7 @@ export function Footer({ content }: { content: SiteContent }) {
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           {/* Brand */}
           <div className="flex items-center gap-3">
-            <MetexLogo size={28} showText={false} />
+            <MetexLogo size={28} />
             <div>
               <p className="text-sm font-semibold text-white">{content.brand.legalName}</p>
               <p className="text-xs text-emerald-50/45">{content.brand.tagline}</p>

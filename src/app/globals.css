@@ -171,3 +171,70 @@ h6 {
   mix-blend-mode: screen;
   box-shadow: 0 0 32px rgba(0, 255, 178, 0.35);
 }
+
+/* ── Enhanced UI additions ────────────────────────── */
+
+/* Smooth thin scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #020d0a;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 178, 0.3);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 178, 0.55);
+}
+
+/* Prevent body scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Certificate card glow on hover */
+.cert-card-hover {
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.22s ease;
+}
+.cert-card-hover:hover {
+  box-shadow: 0 8px 40px rgba(0, 255, 178, 0.1);
+  border-color: rgba(0, 255, 178, 0.4);
+  transform: translateY(-3px);
+}
+
+/* Neon text glow */
+.neon-text {
+  text-shadow: 0 0 18px rgba(0, 255, 178, 0.5);
+}
+
+/* Section top rule */
+.section-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,255,178,0.3) 40%, rgba(0,123,255,0.3) 60%, transparent);
+}
+
+/* Badge pulse */
+@keyframes badge-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
+.badge-live {
+  animation: badge-pulse 2.2s ease-in-out infinite;
+}
+
+/* Animated gradient border for stats panel */
+@keyframes border-spin {
+  to { background-position: 200% center; }
+}
+.animated-border::before {
+  background-size: 200% auto;
+  animation: border-spin 4s linear infinite;
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+}

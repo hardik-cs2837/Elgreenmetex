@@ -36,7 +36,7 @@ const ESGComparison = dynamic(
 const CERTIFICATES = [
   {
     id: "battery",
-    title: "Battery Authorization",
+    title: "Registration For Recycling Of Waste Battery",
     subtitle: "EPR-BWM Authorization",
     issuer: "UP Pollution Control Board",
     issuedBy: "Government of Uttar Pradesh",
@@ -328,7 +328,7 @@ export function ESG({ content }: { content: SiteContent }) {
         : "border border-white/20 hover:border-[#00FFB2]/40"
     }`}
   >
-    Battery Authorization
+    Registration For Recycling Of Waste Battery
   </button>
 
   <button
@@ -355,7 +355,7 @@ export function ESG({ content }: { content: SiteContent }) {
     className="glass-card p-6 rounded-2xl max-w-md w-full text-left"
   >
     <h4 className="text-lg font-semibold">
-      {doc === "battery" ? "Battery Authorization" : "Transformer NOC"}
+      {doc === "battery" ? "Registration For Recycling Of Waste Battery" : "Transformer NOC"}
     </h4>
 
     <p className="text-sm text-emerald-100/70 mt-1">

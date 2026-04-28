@@ -394,13 +394,19 @@ export function ESG({ content }: { content: SiteContent }) {
 
     
     {open && (
-  <div className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4">
+<div
+  className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4"
+  onClick={() => setOpen(false)}  // 👈 ADD THIS
+>
     
-    <div className="relative w-full max-w-5xl h-[85vh] bg-black rounded-2xl overflow-hidden border border-white/10">
+   <div
+  className="relative w-full max-w-5xl h-[85vh] bg-black rounded-2xl overflow-hidden border border-white/10"
+  onClick={(e) => e.stopPropagation()}  // 👈 ADD THIS
+>
       
       <button
         onClick={() => setOpen(false)}
-        className="absolute top-4 right-4 z-10 px-3 py-1 bg-white/10 rounded-lg"
+        className="absolute top-4 right-4 z-50 px-3 py-1 bg-black/60 text-white rounded-lg backdrop-blur"
       >
         Close
       </button>

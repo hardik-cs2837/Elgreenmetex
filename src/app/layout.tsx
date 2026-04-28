@@ -16,6 +16,9 @@ const sora = Sora({
 export const metadata: Metadata = {
   title: siteContent.seo.title,
   description: siteContent.seo.description,
+  icons: {
+  icon: "public/assets/images/metex-logo.png",
+},
   keywords: [...siteContent.seo.keywords],
   metadataBase: new URL(siteContent.seo.url),
   openGraph: {
